@@ -109,7 +109,7 @@ function renderInventory(){
  $("usePotion").onclick=()=>{if(state.inventory.potion>0){state.inventory.potion--;state.creature.hp=Math.min(state.creature.maxHp,state.creature.hp+Math.round(state.creature.maxHp*.25));log("🧪 Poção usada.");render();save()}};
 }
 function renderShop(){
- $("shopList").innerHTML=shopItems.map(i=>`<div class="card"><div class="icon">${i.emoji}</div><h3>${i.name}</h3><p>${i.desc}</p><b>💰 ${i.price}</b><br><button data-buy="${i.id">Comprar</button></div>`).join("").replace('data-buy="${i.id}"','data-buy="${i.id}"');
+ $("shopList").innerHTML=shopItems.map(i=>`<div class="card"><div class="icon">${i.emoji}</div><h3>${i.name}</h3><p>${i.desc}</p><b>💰 ${i.price}</b><br><button data-buy="${i.id}">Comprar</button></div>`).join("").replace('data-buy="${i.id}"','data-buy="${i.id}"');
  document.querySelectorAll("[data-buy]").forEach(b=>b.onclick=()=>buy(b.dataset.buy));
 }
 function buy(id){
