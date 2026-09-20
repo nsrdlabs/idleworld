@@ -121,7 +121,7 @@ function buy(id){
  render();save();
 }
 function renderAchievements(){
- $("achievementList").innerHTML=achievements.map(a=>`<div class="achievement ${a[2](state)?"done":""}"><div><b>${a[2](state)?"🏆":"🔒"} ${a[1]}</b><br><small>${a[2](state)?"Concluída!":a[3]}</small></div></div>`).join("");
+ $("achievementList").innerHTML=achievements.map(a=>`<div class="achievement ${a[3](state)?"done":""}"><div><b>${a[3](state)?"🏆":"🔒"} ${a[1]}</b><br><small>${a[3](state)?"Concluída!":a[2]}</small></div></div>`).join("");
 }
 function tabs(){
  document.querySelectorAll(".nav-btn").forEach(b=>b.onclick=()=>{document.querySelectorAll(".nav-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));$(b.dataset.tab+"Tab").classList.add("active")});
@@ -135,9 +135,29 @@ function showOffline(){
  $("offlineBox").classList.remove("hidden");$("closeOffline").onclick=()=>{$("offlineBox").classList.add("hidden");save();render()};
 }
 function newGame(){
- state.started=true;state.name=prompt("Digite o nome do seu aventureiro:")||"Aventureiro";baseCreature();makeEnemy();$("startScreen").classList.remove("active");$("gameScreen").classList.add("active");tabs();render();startCombat();save();
+ state.started=true;state.name=window.prompt("Digite o nome do seu aventureiro:")||"Aventureiro";baseCreature();makeEnemy();$("startScreen").classList.remove("active");$("gameScreen").classList.add("active");tabs();render();startCombat();save();
 }
-$("startBtn").onclick=()=>{load();if(localStorage.getItem(SAVE_KEY)){state.started=true;$("startScreen").classList.remove("active");$("gameScreen").classList.add("active");tabs();baseCreature();makeEnemy();showOffline();render();startCombat()}else newGame()};
+$("startBtn").onclick=()=>{
+ try{
+   load();
+   if(localStorage.getItem(SAVE_KEY)){
+     state.started=true;
+     $("startScreen").classList.remove("active");
+     $("gameScreen").classList.add("active");
+     tabs();
+     baseCreature();
+     makeEnemy();
+     showOffline();
+     render();
+     startCombat();
+   }else{
+     newGame();
+   }
+ }catch(err){
+   console.error(err);
+   alert("Não foi possível iniciar o jogo. Recarregue a página e tente novamente.");
+ }
+};
 $("resetBtn").onclick=()=>{if(confirm("Apagar todo o progresso?")){localStorage.removeItem(SAVE_KEY);location.reload()}};
 $("pauseBtn").onclick=()=>{state.paused=!state.paused;$("pauseBtn").textContent=state.paused?"▶️ Continuar":"⏸️ Pausar";};
 $("bossBtn").onclick=()=>{if(!enemy)return;if(enemy.boss)return log("O Boss já está em combate.");makeEnemy(true);log(`👹 ${enemy.name} apareceu!`);render()};
