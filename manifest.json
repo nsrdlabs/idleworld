@@ -1,0 +1,10 @@
+{
+  "name":"Monster Idle World",
+  "short_name":"Monster Idle",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#0b1120",
+  "theme_color":"#101827",
+  "lang":"pt-BR",
+  "description":"RPG idle original para navegador, celular e PC."
+}
