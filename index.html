@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101827">
+<meta name="description" content="Monster Idle World - RPG idle original">
+<link rel="manifest" href="manifest.json">
+<title>Monster Idle World</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><span>🐲</span><div><b>MONSTER IDLE WORLD</b><small>V1.0</small></div></div>
+    <div class="resources">
+      <span>💰 <b id="gold">0</b></span>
+      <span>💎 <b id="gems">0</b></span>
+    </div>
+  </header>
+
+  <main>
+    <section id="startScreen" class="screen active">
+      <div class="hero-card">
+        <div class="logo-monster">🐲</div>
+        <h1>Monster Idle World</h1>
+        <p>Treine criaturas, explore regiões e continue evoluindo mesmo quando estiver longe.</p>
+        <button id="startBtn" class="primary">JOGAR</button>
+        <button id="resetBtn" class="ghost">Apagar progresso</button>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen">
+      <div id="offlineBox" class="offline hidden"></div>
+
+      <div class="layout">
+        <aside class="sidebar panel">
+          <h3>🗺️ MAPA</h3>
+          <div id="areaList"></div>
+          <hr>
+          <button data-tab="battle" class="nav-btn active">⚔️ Combate</button>
+          <button data-tab="creatures" class="nav-btn">🐲 Criaturas</button>
+          <button data-tab="inventory" class="nav-btn">🎒 Inventário</button>
+          <button data-tab="shop" class="nav-btn">🏪 Loja</button>
+          <button data-tab="achievements" class="nav-btn">🏆 Conquistas</button>
+        </aside>
+
+        <section class="content">
+          <div id="battleTab" class="tab active">
+            <div class="panel profile">
+              <div>
+                <small>JOGADOR</small>
+                <h2 id="playerName">Aventureiro</h2>
+              </div>
+              <div class="player-level">Nível <b id="playerLevel">1</b></div>
+            </div>
+
+            <div class="panel creature-card">
+              <div class="creature-avatar" id="creatureEmoji">🔥</div>
+              <div class="creature-info">
+                <div class="title-row"><h2 id="creatureName">Flamito</h2><span id="creatureRarity" class="badge">Comum</span></div>
+                <div class="level">Nível <b id="creatureLevel">1</b></div>
+                <div class="bar-label"><span>XP</span><span id="xpText">0 / 100</span></div>
+                <div class="bar"><i id="xpBar"></i></div>
+                <div class="stats-grid">
+                  <span>❤️ HP <b id="hpStat">100</b></span>
+                  <span>⚔️ ATK <b id="atkStat">12</b></span>
+                  <span>🛡️ DEF <b id="defStat">5</b></span>
+                  <span>⚡ VEL <b id="spdStat">5</b></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel battle">
+              <div class="area-title"><span id="currentAreaEmoji">🌲</span><div><h2 id="currentAreaName">Floresta Verde</h2><small id="currentAreaDesc">Uma floresta tranquila para iniciantes.</small></div></div>
+              <div class="fighters">
+                <div class="fighter">
+                  <div class="big-emoji" id="fighterCreatureEmoji">🔥</div>
+                  <b id="fighterCreatureName">Flamito</b>
+                  <div class="bar hp"><i id="playerHpBar"></i></div>
+                  <small id="playerHpText">100 / 100</small>
+                </div>
+                <div class="vs">VS</div>
+                <div class="fighter">
+                  <div class="big-emoji" id="enemyEmoji">🟢</div>
+                  <b id="enemyName">Slime Verde</b>
+                  <div class="bar hp enemy"><i id="enemyHpBar"></i></div>
+                  <small id="enemyHpText">50 / 50</small>
+                </div>
+              </div>
+              <div class="combat-actions">
+                <button id="pauseBtn" class="secondary">⏸️ Pausar</button>
+                <button id="bossBtn" class="danger">👹 Boss</button>
+              </div>
+              <div id="combatLog" class="log"></div>
+            </div>
+          </div>
+
+          <div id="creaturesTab" class="tab">
+            <div class="panel"><h2>🐲 Coleção</h2><p class="muted">Na V1, novas criaturas podem ser desbloqueadas usando fragmentos.</p><div id="creatureCollection" class="cards"></div></div>
+          </div>
+
+          <div id="inventoryTab" class="tab">
+            <div class="panel"><h2>🎒 Inventário</h2><div id="inventoryList" class="inventory"></div></div>
+          </div>
+
+          <div id="shopTab" class="tab">
+            <div class="panel"><h2>🏪 Loja</h2><div id="shopList" class="cards"></div></div>
+          </div>
+
+          <div id="achievementsTab" class="tab">
+            <div class="panel"><h2>🏆 Conquistas</h2><div id="achievementList"></div></div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="js/game.js"></script>
+<script>
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
